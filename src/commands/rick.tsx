@@ -1,6 +1,7 @@
 import { ApplicationCommandInputType, ApplicationCommandOptionType, ApplicationCommandType, Command } from "enmity/api/commands";
 import { REST } from "enmity/modules/common"
 import { sendReply } from "enmity/api/clyde";
+import { Messages } from "enmity/metro/common";
 
 export const rickCommand: Command = {
     id: "rick-command",
@@ -17,6 +18,8 @@ export const rickCommand: Command = {
     //options: [],
 
     execute: async function (args, message) {
-        sendReply(message?.channel.id ?? "0", "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+        var rickRollURL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        //sendReply(message?.channel.id ?? "0", "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+        Messages._sendMessage(message?.channel.id ?? "0", rickRollURL);
     }
 }
