@@ -20,7 +20,8 @@ export const rickCommand: Command = {
     execute: async function (args, message) {
         var rickRollURL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
         //sendReply(message?.channel.id ?? "0", "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-        Messages._sendMessage(message?.channel.id ?? "0", "This is a test");
+        //Messages._sendMessage(message?.channel.id ?? "0", "This is a test");
+        // send rickroll link
         return { content: rickRollURL };
     }
 }
