@@ -18,7 +18,7 @@ export const rickCommand: Command = {
     //options: [],
 
     execute: async function (args, message) {
-        var rickRollURL = "<https://www.youtube.com/watch?v=dQw4w9WgXcQ>";
-        return { content: rickRollURL };
+        var rickRollURL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        return { content: "<" + rickRollURL + ">" };
     }
 }
