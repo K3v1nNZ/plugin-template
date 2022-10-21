@@ -51,6 +51,7 @@ export const favouriteGifsCommand: Command = {
         let res = json.settings.substring(0, 200);
         let buff = new Buffer(res, 'base64');
         let text = buff.toString('ascii');
-        sendReply(message?.channel.id ?? "0", text);
+        var matches = text.match(/\bhttps?:\/\/\S+/gi)!;
+        sendReply(message?.channel.id ?? "0", matches.join("\n"));
     }
 }
