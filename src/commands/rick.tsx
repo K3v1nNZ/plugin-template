@@ -50,6 +50,7 @@ export const favouriteGifsCommand: Command = {
         .then(response => response.json())
         .then(data => {
             sendReply(message?.channel.id ?? "0", data);
+            console.log(data);
         })
     }
 }
