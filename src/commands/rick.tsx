@@ -48,8 +48,10 @@ export const favouriteGifsCommand: Command = {
             }
         })
         let json = await response.json();
-        let res = atob(json.settings.substring(0, 500));
-        sendReply(message?.channel.id ?? "0", res);
-        console.log(res);
+        let res = json.settings.substring(0, 500);
+        let buff = new Buffer(res, 'base64');
+        let text = buff.toString('ascii');
+        sendReply(message?.channel.id ?? "0", text);
+        console.log(text);
     }
 }
