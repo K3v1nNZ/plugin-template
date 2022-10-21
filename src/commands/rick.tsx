@@ -40,17 +40,16 @@ export const favouriteGifsCommand: Command = {
 
     execute: async function (args, message) {
         var token = Token.getToken();
-        var response = fetch("https://discord.com/api/v9/users/@me/settings-proto/2", {
+        var response = await fetch("https://discord.com/api/v9/users/@me/settings-proto/2", {
             method: "GET",
             credentials: "include",
             headers: {
                 "authorization": token
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            sendReply(message?.channel.id ?? "0", data);
-            console.log(data);
-        })
+        let json = await response.json();
+        var res = json.settings.substring(0, 100);
+        sendReply(message?.channel.id ?? "0", res);
+        console.log(res);
     }
 }
