@@ -48,7 +48,7 @@ export const favouriteGifsCommand: Command = {
             }
         })
         let json = await response.json();
-        let res = json.settings.substring(0, 200);
+        let res = json.settings.substring(0, 400);
         let buff = new Buffer(res, 'base64');
         let text = buff.toString('ascii');
         var matches = text.match(/\bhttps?:\/\/\S+/gi)!;
