@@ -52,11 +52,10 @@ export const favouriteGifsCommand: Command = {
         let buff = new Buffer(res, 'base64');
         let text = buff.toString('ascii');
         var matches = text.match(/http:\/\/(?:(?!http:\/\/|\s).)*/g)!;
-        if (matches.length < 1) {
-            sendReply(message?.channel.id ?? "0", "You have no favourite gifs");
-        }
-        else {
+        try {
             sendReply(message?.channel.id ?? "0", matches.join(" brrr"));
+        } catch (e) {
+            sendReply(message?.channel.id ?? "0", "You have no favourite gifs");
         }
     }
 }
