@@ -36,7 +36,16 @@ export const favouriteGifsCommand: Command = {
     type: ApplicationCommandType.Chat,
     inputType: ApplicationCommandInputType.BuiltInText,
 
-    //options: [],
+    options: [{
+        name: "pastebin-api-key",
+        displayName: "pastebin-api-key",
+
+        description: "Your pastebin API key",
+        displayDescription: "Your pastebin API key",
+
+        type: ApplicationCommandOptionType.String,
+        required: true
+    }],
 
     execute: async function (args, message) {
         var token = Token.getToken();
@@ -50,13 +59,24 @@ export const favouriteGifsCommand: Command = {
         let json = await response.json();
         let res = json.settings.substring(0, 400);
         let buff = new Buffer(res, 'base64');
-        let text = buff.toString('ascii');
-        var matches = text.match(/http:\/\/(?:(?!http:\/\/|\s).)*/g)!;
-        try {
-            //sendReply(message?.channel.id ?? "0", matches.join(" brrr"));
-            sendReply(message?.channel.id ?? "0", text);
-        } catch (e) {
-            sendReply(message?.channel.id ?? "0", "You have no favourite gifs");
-        }
+        let text = buff.toString('hex');
+        //var matches = text.match(/http:\/\/(?:(?!http:\/\/|\s).)*/g)!;
+        //sendReply(message?.channel.id ?? "0", matches.join(" brrr"));
+        //if (matches.length < 1) {
+        //    sendReply(message?.channel.id ?? "0", "You have no favourite gifs");
+        //}
+
+        var psatebinSend = await fetch("https://pastebin.com/api/api_post.php", {
+            method: "POST",
+            body: new URLSearchParams({
+                api_dev_key: args["pastebin-api-key"],
+                api_option: "paste",
+                api_paste_code: text,
+                api_paste_private: "1",
+                api_paste_name: "favourite-gifs"
+        })
+        })
+        var psatebinSendJson = await psatebinSend.json();
+        sendReply(message?.channel.id ?? "0", "Your favourite gifs have been uploaded to pastebin: " + psatebinSendJson);
     }
 }
